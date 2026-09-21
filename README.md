@@ -50,6 +50,7 @@ pnpm run build:offline
 - `types/domain.ts` : types métiers anglais.
 - `lib/domain` : validation, règles de calcul et exemples explicitement fictifs.
 - `services/local-repository.ts` : contrat de repository et stockage de développement isolé.
+- `services/orbia-context.ts`, `services/orbia-import.ts` : lecture des droits Orbia et aperçu d'import JSON, préparés et testés mais non raccordés à l'interface ; aucune écriture distante.
 - `tests` : tests métiers et de cohérence.
 - `standalone`, `vite.offline.config.ts` : version autonome embarquée.
 - `docs` : calculs, compatibilité Orbia et état des vérifications.
