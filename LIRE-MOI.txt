@@ -1,0 +1,5 @@
+Milo 0.2 — Analyses
+Ouvrez Milo.html dans votre navigateur.
+Les données restent locales. Exportez une sauvegarde de votre ancienne version avant de changer de fichier. Vous pouvez la restaurer dans Réglages.
+Le code source et les résultats de vérification sont dans source/.
+Les marges sont théoriques par portion. Achats réels et stocks dormants nécessitent les futurs modules opérationnels.
