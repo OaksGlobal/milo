@@ -1,6 +1,6 @@
 # Raccordement Orbia — préparation au 21 septembre 2026
 
-Les sources Milo sont disponibles dans `OaksGlobal/milo`. Le propriétaire a confirmé que les établissements existants sont des tests. Le socle commun est préparé dans [Helly #46](https://github.com/OaksGlobal/helly/pull/46), mais n'est pas appliqué au projet Supabase hébergé. L'interface Milo reste un atelier local.
+Les sources Milo sont disponibles dans `OaksGlobal/milo`. Le propriétaire a confirmé que les établissements existants sont des tests et autorisé l'utilisation de Helly comme projet commun. Le socle de [Helly #46](https://github.com/OaksGlobal/helly/pull/46) est installé sur ce projet. L'interface Milo reste un atelier local.
 
 ## Code préparé dans ce lot
 
@@ -16,7 +16,7 @@ Ces services ne sont pas encore branchés à l'interface. Aucun repository Supab
 
 - `pnpm test` : 36 tests réussis, dont validation du contexte, révocation, rôle lecteur, expiration, conservation des historiques et absence de mutation pendant l'aperçu.
 - `pnpm run typecheck` et `pnpm run build:next` : réussis.
-- Le scénario SQL du socle Helly (`scripts/test-orbia-products.mjs`) vérifie les droits Milo indépendants de Cento et la portée des établissements avec des données synthétiques.
+- Le scénario SQL du socle Helly (`scripts/test-orbia-products.mjs`) vérifie les droits Milo indépendants de Cento et la portée des établissements avec des données synthétiques. Ces contrôles ont aussi réussi sur PostgreSQL hébergé dans une transaction annulée (`scripts/verify-orbia-hosted.sql`). Le refus anonyme de la RPC Milo a été vérifié par HTTP.
 - Les réponses HTTP des tests sont simulées. Le parcours Supabase Auth/PostgREST avec une session réelle et l'import distant restent à tester après implémentation et déploiement en préproduction.
 
 ## Existant inspecté dans cette conversation
@@ -29,7 +29,7 @@ Aucune production, table existante, permission, donnée d'entreprise ou configur
 
 1. Les UUID d'établissements Helly sont à préserver. Ne pas recopier les établissements, comptes ou salariés dans Milo.
 2. Ne pas déduire les organisations des noms, des adresses ou du propriétaire commun. Pour les établissements de test confirmés, utiliser des correspondances fictives explicites et préserver les données existantes.
-3. Utiliser le socle commun compatible avec Helly : il prévoit le renommage physique `shops` → `locations` avec une vue `shops` de compatibilité et conservation des UUID/FK. Ne pas créer une fondation concurrente propre à Milo.
+3. Utiliser le socle commun installé : `shops` reste la table physique existante et `locations` est une vue `security_invoker` sur les mêmes lignes. Toute FK vers un établissement doit cibler `shops`, avec `organization_id` dans la clé composite si applicable. Ne pas créer une fondation concurrente propre à Milo.
 4. Inspecter de nouveau schéma, contraintes, fonctions RLS et migrations au moment du raccordement. Les observations de cette conversation ne suffisent pas à appliquer un schéma hypothétique.
 5. Inspecter les tables fournisseurs et références de Nomi avant de créer leur équivalent : partager le fournisseur et les identifiants utiles au lieu de deux sources concurrentes.
 6. Pulp devra lire un coût Milo avec son identifiant de produit/recette, sa date, sa méthode et son unité, et garder ses commissions/promotions comme calcul propre. Ne pas écraser automatiquement ses fiches locales.
@@ -60,4 +60,4 @@ Le contrat `WorkspaceRepository` sert la version locale. Le futur repository dis
 - Storage privé et URLs temporaires.
 - Tests inter-organisations/inter-établissements, puis raccordement GitHub/Vercel et recette complète.
 
-Aucune migration SQL métier Milo n'est livrée à ce stade. Le socle canonique est proposé dans Helly ; le partage fournisseurs/articles avec Nomi, les contraintes métier et la répétition sur Supabase restent à finaliser.
+Aucune migration SQL métier Milo n'est livrée à ce stade. Le socle canonique est installé dans Helly ; le partage fournisseurs/articles avec Nomi, les contraintes métier et l'import distant restent à finaliser. Les organisations et droits des établissements existants ne sont pas encore provisionnés ; aucun accès produit n'est activé implicitement.
