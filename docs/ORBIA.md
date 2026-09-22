@@ -1,4 +1,4 @@
-# Raccordement Orbia — préparation au 21 septembre 2026
+# Raccordement Orbia — préparation au 22 septembre 2026
 
 Les sources Milo sont disponibles dans `OaksGlobal/milo`. Le propriétaire a confirmé que les établissements existants sont des tests et autorisé l'utilisation de Helly comme projet commun. Le socle de [Helly #46](https://github.com/OaksGlobal/helly/pull/46) est installé sur ce projet. L'interface Milo reste un atelier local.
 
@@ -17,13 +17,13 @@ Ces services ne sont pas encore branchés à l'interface. Aucun repository Supab
 - `pnpm test` : 36 tests réussis, dont validation du contexte, révocation, rôle lecteur, expiration, conservation des historiques et absence de mutation pendant l'aperçu.
 - `pnpm run typecheck` et `pnpm run build:next` : réussis.
 - Le scénario SQL du socle Helly (`scripts/test-orbia-products.mjs`) vérifie les droits Milo indépendants de Cento et la portée des établissements avec des données synthétiques. Ces contrôles ont aussi réussi sur PostgreSQL hébergé dans une transaction annulée (`scripts/verify-orbia-hosted.sql`). Le refus anonyme de la RPC Milo a été vérifié par HTTP.
-- Les réponses HTTP des tests sont simulées. Le parcours Supabase Auth/PostgREST avec une session réelle et l'import distant restent à tester après implémentation et déploiement en préproduction.
+- Les tests unitaires des services utilisent des réponses HTTP simulées. Le 22 septembre, après accord explicite, le scénario HTTP du socle Helly a validé le contexte Milo avec une session Supabase réelle, les filtres organisation/établissement, l'indépendance face à l'expiration Cento et la révocation avec le même jeton. Les comptes et données fictifs ont été supprimés. L'interface, les opérations métier et l'import distant restent à implémenter et tester.
 
 ## Existant inspecté dans cette conversation
 
 Le projet Supabase Helly contient `shops`, `shop_members`, `profiles`, `employees`, `access_roles` et des tables de planning reliées à des `location_id`. Les tables canoniques `organizations`, `locations`, `organization_memberships` étaient absentes au moment de l'inspection. Le README Nomi signale une base encore non connectée et des migrations pour base neuve qui ne doivent pas être exécutées sur Helly. Le code Pulp consulté conserve les fiches de coût dans le navigateur.
 
-Aucune production, table existante, permission, donnée d'entreprise ou configuration Auth n'a été modifiée pour cette livraison.
+L'atelier Milo n'a pas été modifié par ces essais. Le socle commun est installé sur Helly ; les comptes et permissions fictifs utilisés pour la vérification HTTP du 22 septembre ont été supprimés après les tests. Aucun droit permanent d'un établissement existant n'a été ajouté.
 
 ## Décisions
 
