@@ -1,5 +1,7 @@
 # Raccordement Orbia — préparation au 22 septembre 2026
 
+**Suite du travail :** [état vérifié et lot de persistance préparé](ORBIA_REMOTE_STATUS.md), [contrat distant](contracts/MILO_REMOTE_V1.md), [proposition catalogue Milo/Nomi](contracts/NOMI_CATALOG_PROPOSAL.md). Les paragraphes ci-dessous décrivent la PR #1 ; l’interface reste locale. Le nouveau client distant est préparé mais ses RPC ne sont pas installées.
+
 Les sources Milo sont disponibles dans `OaksGlobal/milo`. Le propriétaire a confirmé que les établissements existants sont des tests et autorisé l'utilisation de Helly comme projet commun. Le socle de [Helly #46](https://github.com/OaksGlobal/helly/pull/46) est installé sur ce projet. L'interface Milo reste un atelier local.
 
 ## Code préparé dans ce lot
@@ -21,7 +23,7 @@ Ces services ne sont pas encore branchés à l'interface. Aucun repository Supab
 
 ## Existant inspecté dans cette conversation
 
-Le projet Supabase Helly contient `shops`, `shop_members`, `profiles`, `employees`, `access_roles` et des tables de planning reliées à des `location_id`. Les tables canoniques `organizations`, `locations`, `organization_memberships` étaient absentes au moment de l'inspection. Le README Nomi signale une base encore non connectée et des migrations pour base neuve qui ne doivent pas être exécutées sur Helly. Le code Pulp consulté conserve les fiches de coût dans le navigateur.
+Le projet Supabase Helly contient `shops`, `shop_members`, `profiles`, `employees`, `access_roles` et des tables de planning reliées à des `location_id`. Lors de l’inspection initiale, avant installation du socle, `organizations`, `locations` et `organization_memberships` étaient absentes. Ce constat historique est désormais dépassé : elles sont présentes le 22 septembre ; `locations` est une vue sur `shops`. Le README Nomi signale une base encore non connectée et des migrations pour base neuve qui ne doivent pas être exécutées sur Helly. Le code Pulp consulté conserve les fiches de coût dans le navigateur.
 
 L'atelier Milo n'a pas été modifié par ces essais. Le socle commun est installé sur Helly ; les comptes et permissions fictifs utilisés pour la vérification HTTP du 22 septembre ont été supprimés après les tests. Aucun droit permanent d'un établissement existant n'a été ajouté.
 
